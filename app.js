@@ -21,7 +21,7 @@ User.hasMany(Products)
 
 //synchronizing the database and forcing it to false so we dont lose data
 db.sync({ force: false }).then(() => {
-    console.log("db has been re sync")
+    console.log("database is synced")
 })
 
 app.use('/api/v1/auth', authRouter)
