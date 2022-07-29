@@ -38,7 +38,13 @@ exports.getSingleProduct = async (req, res) => {
 }
 
 exports.updateProduct = async (req, res) => {
-
+    try {
+        const product = await Products.update({name : req.body.name, price : req.body.price, image : req.body.image}, {where : {id : req.params.id}})
+        res.status(StatusCodes.CREATED).json({product})
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
+    }
 }
 
 exports.deleteProduct = async (req, res) => {
