@@ -40,7 +40,7 @@ exports.getSingleProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     try {
         const product = await Products.update({name : req.body.name, price : req.body.price, image : req.body.image}, {where : {id : req.params.id}})
-        res.status(StatusCodes.CREATED).json({product})
+        res.status(StatusCodes.OK).json({product})
     } catch (error) {
         console.log(error)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
@@ -48,5 +48,12 @@ exports.updateProduct = async (req, res) => {
 }
 
 exports.deleteProduct = async (req, res) => {
+    try {
+        const product = await Products.destroy({where : {id : req.params.id}})
+        res.status(StatusCodes.OK).json({msg : `Deleted successfully!`})
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg : `Problem deleting specified product!`})
+    }
 
 }
