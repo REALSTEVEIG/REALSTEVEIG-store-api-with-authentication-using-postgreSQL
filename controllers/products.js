@@ -14,10 +14,26 @@ exports.createProduct = (req, res) => {
 }
 
 exports.getAllProducts = async (req, res) => {
-
+     try {
+        const products = await Products.findAll()
+        res.status(StatusCodes.OK).json({products, count : products.length})
+     }
+     catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
+     }
 }
 
 exports.getSingleProduct = async (req, res) => {
+
+    try {
+        const product = await Products.findOne({where : {id : req.params.id}})
+        res.status(StatusCodes.OK).json({product})
+        console.log(product)
+    } catch (error) {
+        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
+    }
 
 }
 

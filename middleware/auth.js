@@ -3,7 +3,6 @@ const {StatusCodes} = require('http-status-codes')
 
 const authMiddleware = async (req, res, next) => {
     let token = req.headers.authorization
-    console.log(token)
     if (!token) {
         return res.status(StatusCodes.UNAUTHORIZED).json({msg : `Unauthorized`})
     }
