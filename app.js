@@ -10,6 +10,7 @@ const productRouter = require('./routes/products')
 const cookieParser = require('cookie-parser')
 const User = require('./model/user')
 const Products = require('./model/products')
+const authMiddleware = require('./middleware/auth')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -25,7 +26,7 @@ db.sync({ force: false }).then(() => {
 })
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/products', productRouter)
+app.use('/api/v1/products', authMiddleware ,productRouter)
 
 const start = async () => {
     try {
