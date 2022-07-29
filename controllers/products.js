@@ -1,18 +1,17 @@
 const Products = require('../model/products')
 const {StatusCodes} = require('http-status-codes')
-//const User = require('../model/user')
+const User = require('../model/user')
 
-exports.createProduct = async (req, res) => {
-  try {
-   // User.createProducts({...req.body})
-    const product = await Products.create({...req.body})
-    res.status(StatusCodes.CREATED).json({product})
-  } catch (error) {
-    console.log(error)
-    res.status(StatusCodes.UNAUTHORIZED).json({error})
-  }
+exports.createProduct = (req, res) => {
+     Products.create({...req.body})
+    .then((product) => {
+        res.status(StatusCodes.CREATED).json({product})
+    })    
+    .catch((error) => {
+        console.log(error)
+        res.status(StatusCodes.UNAUTHORIZED).json({error})
+    }) 
 }
-
 
 exports.getAllProducts = async (req, res) => {
 
